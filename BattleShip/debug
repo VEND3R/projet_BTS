@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# supp prgm
+rm ./prgm &> /dev/null;
+
+# Compile, clear screen and run prgm
+g++ -Wall ./src/*.cpp -o prgm && ./prgm;
