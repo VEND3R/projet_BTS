@@ -1,221 +1,187 @@
-//utils.cpp
-
-#include "utils.h"
+#include "../include/utils.h"
 
 //// Random numbers ////
-// Init random generator
+
 void initRandomGenerator(int seed) {
-	if (seed == 0) {
-		srand(time(NULL));
-	} else {
-		srand(seed);
-	}
+    if (seed == 0) srand(time(NULL));
+    else srand(seed);
 }
-// Get random integer in interval [min ; max]
+
 int getRandom(int min, int max) {
-	return rand()%(max-min+1) + min;
+    return rand() % (max - min + 1) + min;
 }
 
 //// Conversions ////
-// Number to string
+
 string toString(int nb) {
-	std::ostringstream ss;
-  ss << nb;
-  return ss.str();
+    std::ostringstream ss;
+    ss << nb;
+    return ss.str();
 }
+
 string toString(double nb) {
-	std::ostringstream ss;
-  ss << nb;
-  return ss.str();
+    std::ostringstream ss;
+    ss << nb;
+    return ss.str();
 }
+
 string toString(bool nb) {
-	std::ostringstream ss;
-  ss << nb;
-  return ss.str();
+    std::ostringstream ss;
+    ss << nb;
+    return ss.str();
 }
-// String to string
+
 string toLower(string str) {
-	for (unsigned int i=0 ; i<str.length() ; i++) {
-		str[i] = tolower(str[i]);
-	}
-	return str;
+    for (unsigned int i = 0; i < str.length(); i++) {
+        str[i] = tolower(str[i]);
+    }
+    return str;
 }
+
 string toUpper(string str) {
-	for (unsigned int i=0 ; i<str.length() ; i++) {
-		str[i] = toupper(str[i]);
-	}
-	return str;
+    for (unsigned int i = 0; i < str.length(); i++) {
+        str[i] = toupper(str[i]);
+    }
+    return str;
 }
+
 string toFirstName(string str) {
-	if (str.length() > 0) str[0] = toupper(str[0]);
-	for (unsigned int i=1 ; i<str.length() ; i++) {
-		str[i] = tolower(str[i]);
-	}
-	return str;
+    if (str.length() > 0) str[0] = toupper(str[0]);
+    for (unsigned int i = 1; i < str.length(); i++) {
+        str[i] = tolower(str[i]);
+    }
+    return str;
 }
 
-// Number to character (0 -> A, 1 -> B, 2 -> C, ...)
 string toCharacter(int nb) {
-	std::ostringstream ss;
-  ss << (char)(65 + nb);
-  return ss.str();
+    std::ostringstream ss;
+    ss << (char)(65 + nb);
+    return ss.str();
 }
 
-// Character to number (A -> 0, B -> 1, C -> 2, ...)
 int toNumber(char character) {
-	if (character >= 65 && character < 91) {
-		return character - 65;
-	} else if (character >= 48 && character < 58) {
-		return character - 48;
-	} else if (character >= 97 && character < 123) {
-		return character - 97;
-	} else {
-		return -1;
-	}
+    if (character >= 'A' && character <= 'Z') return character - 'A';
+    if (character >= '0' && character <= '9') return character - '0';
+    if (character >= 'a' && character <= 'z') return character - 'a';
+    return -1;
 }
+
 int toNumber(string character) {
-	if (character.length() == 1) return toNumber(character[0]);
-	else return -1;
+    if (character.length() == 1) return toNumber(character[0]);
+    return -1;
 }
 
 //// Screen ////
-// Clear screen
+
 void clearScreen() {
-	for (int i=0 ; i<100 ; i++) {
-		cout << "\n";
-	}
+    for (int i = 0; i < 100; i++) cout << "\n";
 }
-// Delay screen (time in ms)
+
 void delay(int timeMs) {
-	usleep((long)1000 * (long)timeMs);
+    usleep((long)1000 * (long)timeMs);
 }
+
 //// Text colors ////
-// Set text color, background color, bold and underline styles
-// Colors : {0, 1, 2, 3, 4, 5, 6, 7, 8} : {default, black, red, green, yellow, blue, magenta, cyan, white}
+
 string setTextColor(int textColor, int backgroundColor, bool isBold, bool isUnderline) {
-	string str = "\033[";
+    string str = "\033[";
 
-	// Text color
-	if (textColor > 0) {
-		str += toString(textColor + 29) + ";";
-	}
+    if (textColor > 0) str += toString(textColor + 29) + ";";
+    if (backgroundColor > 0) str += toString(backgroundColor + 39) + ";";
 
-	// Background color
-	if (backgroundColor > 0) {
-		str += toString(backgroundColor + 39) + ";";
-	}
+    str += isBold ? "1;" : "21;";
+    str += isUnderline ? "4" : "24";
 
-	// Bold
-	if (isBold) {
-		str += "1;";
-	} else {
-		str += "21;";
-	}
-
-	// Underline
-	if (isUnderline) {
-		str += "4";
-	} else {
-		str += "24";
-	}
-
-	str += "m";
-	return str;
+    str += "m";
+    return str;
 }
 
-// Reset text color and styles to default
 string resetTextColor() {
-	return "\033[0m";
+    return "\033[0m";
 }
 
-// Invert text color and background color
 string invertTextColor() {
-	return "\033[7m";
+    return "\033[7m";
 }
 
-// Reset (=remove) text color inversion
 string resetTextColorInversion() {
-	return "\033[27m";
+    return "\033[27m";
 }
+
 //// Date and time ////
+
 int todayYear() {
-	time_t now = time(NULL);
-	 struct tm today = *localtime(&now);
-	 return today.tm_year + 1900;
+    time_t now = time(NULL);
+    struct tm today = *localtime(&now);
+    return today.tm_year + 1900;
 }
+
 int todayMonth() {
-	time_t now = time(NULL);
-	 struct tm today = *localtime(&now);
-	 return today.tm_mon + 1;
+    time_t now = time(NULL);
+    struct tm today = *localtime(&now);
+    return today.tm_mon + 1;
 }
+
 int todayDay() {
-	time_t now = time(NULL);
-	 struct tm today = *localtime(&now);
-	 return today.tm_mday;
+    time_t now = time(NULL);
+    struct tm today = *localtime(&now);
+    return today.tm_mday;
 }
+
 int todayHour() {
-	time_t now = time(NULL);
-	 struct tm today = *localtime(&now);
-	 return today.tm_hour;
+    time_t now = time(NULL);
+    struct tm today = *localtime(&now);
+    return today.tm_hour;
 }
+
 int todayMinute() {
-	time_t now = time(NULL);
-	 struct tm today = *localtime(&now);
-	 return today.tm_min;
+    time_t now = time(NULL);
+    struct tm today = *localtime(&now);
+    return today.tm_min;
 }
+
 int todaySecond() {
-	time_t now = time(NULL);
-	 struct tm today = *localtime(&now);
-	 return today.tm_sec;
+    time_t now = time(NULL);
+    struct tm today = *localtime(&now);
+    return today.tm_sec;
 }
-
-
 
 //// Strings ////
-// Remove and return first/last char of string
+
 string removeFirstCharOfString(string& str) {
-	if (str.length() == 0) return "";
-	string out = "";
-	out = str[0];
-	str = str.substr(1, str.length()-1);
-	return out;
-}
-string removeLastCharOfString(string& str) {
-	if (str.length() == 0) return "";
-	string out = "";
-	out = str[str.length()-1];
-	str = str.substr(0, str.length()-1);
-	return out;
+    if (str.length() == 0) return "";
+    string out = string(1, str[0]);
+    str = str.substr(1);
+    return out;
 }
 
+string removeLastCharOfString(string& str) {
+    if (str.length() == 0) return "";
+    string out = string(1, str.back());
+    str = str.substr(0, str.length() - 1);
+    return out;
+}
 
 //// Graphical elements ////
-// Draw progressBar
+
 string progressBar(int maxValue, int value, bool isColored, int color) {
-	string str = "";
+    string str = "";
 
-	// Draw beginning
-	str += setTextColor(color, 0, true, false);
-	str += "[";
+    str += setTextColor(color, 0, true, false);
+    str += "[";
 
-	// Draw progress
-	if (isColored) {
-		if (value <= maxValue / 4) str += setTextColor(2, 0, true, false);
-		else if (value <= maxValue / 2) str += setTextColor(4, 0, true, false);
-		else str += setTextColor(3, 0, true, false);
-	}
-	for (int i=1 ; i<=value ; i++) {
-		str += "-";
-	}
-	if (isColored) str += resetTextColor() + setTextColor(color, 0, true, false);
+    if (isColored) {
+        if (value <= maxValue / 4) str += setTextColor(2, 0, true, false);
+        else if (value <= maxValue / 2) str += setTextColor(4, 0, true, false);
+        else str += setTextColor(3, 0, true, false);
+    }
 
-	// Draw remaining
-	for (int i=value+1 ; i<=maxValue ; i++) {
-		str += " ";
-	}
+    for (int i = 1; i <= value; i++) str += "-";
+    if (isColored) str += resetTextColor() + setTextColor(color, 0, true, false);
 
-	// Draw end
-	str += "]";
-	str += resetTextColor();
-	return str;
+    for (int i = value + 1; i <= maxValue; i++) str += " ";
+
+    str += "]";
+    str += resetTextColor();
+    return str;
 }
