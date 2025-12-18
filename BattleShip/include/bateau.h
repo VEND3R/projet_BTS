@@ -27,8 +27,12 @@
 #define type_PORTE_AVIONS 5
 
 
+#define HORIZONTAL 0
+#define VERTICAL 1
 
-void place1Bateau(int grille[MAX_LIGNES][MAX_COLONNES],int lignes,int colonnes,int type);
+
+
+void place1Bateau(int grille[MAX_LIGNES][MAX_COLONNES],int lignes,int colonnes,int type,int orientation);
 
 
 
