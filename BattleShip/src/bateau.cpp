@@ -4,19 +4,13 @@
 
 using namespace std;
 
-
-
-
 const char alpha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
 // Fonction qui place UN bateau dans la grille
-void placer1Bateau(
-    int grille[MAX_LIGNES][MAX_COLONNES],
-    int ligne,
-    int colonne,
-    int type,
-    int orientation
+void setBateau(
+    int grille[MAX_LIGNES][MAX_COLONNES],int ligne, int colonne, int type,int orientation
 ) {
+
     int taille = 0;
 
     // Déterminer la taille du bateau selon son type
@@ -36,7 +30,7 @@ void placer1Bateau(
     // Placement horizontal
     if (orientation == HORIZONTAL) {
 
-        // Vérifier que le bateau ne dépasse pas la grille
+        // verif si bateau ne dépasse pas la grille
         if (colonne + taille > MAX_COLONNES)
             return;
 
@@ -46,7 +40,7 @@ void placer1Bateau(
         }
     }
 
-    // Placement vertical
+    // vertical
     else if (orientation == VERTICAL) {
 
         // Vérifier que le bateau ne dépasse pas la grille

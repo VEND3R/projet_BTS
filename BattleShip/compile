@@ -3,7 +3,7 @@
 
 
 # Remove prgm
-rm ./prgm &> /dev/null;
+rm ./bin/main &> /dev/null;
 
 # Compile, clear screen and run prgm
-g++ -Wall ./src/*.cpp -o prgm && clear && ./prgm;
+g++ src/*.cpp -Iinclude -o bin/prgm && clear && ./bin/prgm;

@@ -32,7 +32,7 @@
 
 
 
-void place1Bateau(int grille[MAX_LIGNES][MAX_COLONNES],int lignes,int colonnes,int type,int orientation);
+void setBateau(int grille[MAX_LIGNES][MAX_COLONNES],int lignes,int colonnes,int type,int orientation);
 
 
 
