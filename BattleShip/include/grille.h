@@ -1,61 +1,18 @@
-#ifndef _GRILLE_H
-#define _GRILLE_H
+#ifndef GRILLE_H
+#define GRILLE_H
 
-
-
-// HEAD
-#include <stdlib.h>
-#include <iostream>
-#include <sstream>
 #include <string>
-#include <vector>
-#include <regex>
-#include <time.h>
-#include <math.h>
-#include <unistd.h>
-//
-#include  "utils.h"
+
+#define MAX_LIGNES 10
+#define MAX_COLONNES 10
+
 
 
 using namespace std;
 
-
-
-void tab_to_grille(int grille[10][10]);
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+string afficherGrille(int grille[MAX_LIGNES][MAX_COLONNES],
+                    int lignes,
+                    int colonnes);
+void fullGrille(int grille[MAX_LIGNES][MAX_COLONNES],int lignes,int colonnes, int entier);
 
 #endif

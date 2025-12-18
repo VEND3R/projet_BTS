@@ -4,7 +4,7 @@
 
 using namespace std ;
 
-string genarateCarac(int l , int h){
+string genereGrille(int l , int h){
     /*
     0=vide
     1=mer
@@ -65,6 +65,6 @@ string genarateCarac(int l , int h){
 int main(){
     string mer = "[~]";
     string destroyBot = "[*]";
-    cout << genarateCarac(5,10) ;
+    cout << genereGrille(5,10) ;
 }
 
